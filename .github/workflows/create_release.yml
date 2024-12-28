@@ -21,7 +21,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Fetch all history to include tags
-          path: repo      # Checkout into a subdirectory named "repo"
 
       # Install dependencies
       - name: Install OpenGL and related libraries
