@@ -84,9 +84,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create
-          '${{ github.ref_name }}'
-          --repo '${{ github.repository }}'
+          gh release create '${{ github.ref_name }}' \
+          --repo '${{ github.repository }}' \
           --notes "Latest package release ${{ github.ref_name }}
           
           ## Changes:
@@ -99,7 +98,5 @@ jobs:
         # Upload to GitHub Release using the `gh` CLI.
         # `build-artifacts.tar.gz` contains the built game
         run: >-
-          gh release upload
-          '${{ github.ref_name }}'
-          build-artifacts.tar.gz
+          gh release upload '${{ github.ref_name }}' build-artifacts.tar.gz \
           --repo '${{ github.repository }}'
