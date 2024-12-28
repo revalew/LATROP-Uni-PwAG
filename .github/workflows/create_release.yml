@@ -8,8 +8,8 @@ on:
       - '*' # Push events to every tag not containing /
 
 jobs:
-  build-and-release:
-    name: Build and Upload Release Artifact
+  build-and-release-linux:
+    name: Build and Upload Release Artifact (Linux)
     runs-on: ubuntu-latest
 
     permissions:
@@ -43,8 +43,71 @@ jobs:
           cp build/latrop artifacts/  # Copy the latrop binary
           cp -r build/data artifacts/  # Copy the data folder
           cp -r build/maps artifacts/  # Copy the maps folder
-          tar -czf build-artifacts.tar.gz -C artifacts .
+          tar -czf build-artifacts-linux.tar.gz -C artifacts .
 
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: linux-artifacts
+          path: build-artifacts-linux.tar.gz
+
+  build-and-release-windows:
+    name: Build and Upload Release Artifact (Windows)
+    runs-on: windows-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install dependencies
+        run: |
+          choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' --yes
+
+      - name: Build project
+        run: |
+          mkdir build
+          cd build
+          cmake .. -G "Visual Studio 16 2019" -A x64
+          cmake --build . --config Release
+
+      - name: Archive build artifacts
+        run: |
+          mkdir artifacts
+          copy build\\Release\\latrop.exe artifacts\\
+          xcopy build\\data artifacts\\data /E /H /C /I
+          xcopy build\\maps artifacts\\maps /E /H /C /I
+          tar -czf build-artifacts-windows.tar.gz -C artifacts .
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: windows-artifacts
+          path: build-artifacts-windows.tar.gz
+
+  create-release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+
+    needs:
+      - build-and-release-linux
+      - build-and-release-windows
+
+    steps:
+      - name: Download Linux artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: linux-artifacts
+          path: linux
+
+      - name: Download Windows artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: windows-artifacts
+          path: windows
 
       # Fetch the history of commits and append it to the release
       - name: Fetch commit messages
@@ -87,16 +150,16 @@ jobs:
           gh release create '${{ github.ref_name }}' \
           --repo '${{ github.repository }}' \
           --notes "Latest package release ${{ github.ref_name }}
-          
+
           ## Changes:
-          
+
           ${{ env.FORMATTED_COMMITS }}"
 
       - name: Upload artifact to GitHub Release
         env:
           GITHUB_TOKEN: ${{ github.token }}
         # Upload to GitHub Release using the `gh` CLI.
-        # `build-artifacts.tar.gz` contains the built game
+        # `build-artifacts-linux.tar.gz` contains the built game
         run: >-
-          gh release upload '${{ github.ref_name }}' build-artifacts.tar.gz
+          gh release upload '${{ github.ref_name }}' linux/build-artifacts-linux.tar.gz windows/build-artifacts-windows.tar.gz
           --repo '${{ github.repository }}'
