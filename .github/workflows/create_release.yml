@@ -98,5 +98,5 @@ jobs:
         # Upload to GitHub Release using the `gh` CLI.
         # `build-artifacts.tar.gz` contains the built game
         run: >-
-          gh release upload '${{ github.ref_name }}' build-artifacts.tar.gz \
+          gh release upload '${{ github.ref_name }}' build-artifacts.tar.gz
           --repo '${{ github.repository }}'
