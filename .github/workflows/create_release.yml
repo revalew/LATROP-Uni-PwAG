@@ -64,25 +64,20 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Instalujemy i konfigurujemy vcpkg - to najprostsza metoda na Windows
-      - name: Set up vcpkg
-        uses: lukka/get-vcpkg@v11
-        with:
-          # Możesz ustawić konkretną gałąź/commit vcpkg, jeśli chcesz
-          # vcpkgGitCommitId: 'master'
-          # domyślnie pobiera aktualną wersję
-          install: false
-
-      - name: Install dependencies with vcpkg
+      - name: Install vcpkg manually
         run: |
-          vcpkg install glew freeglut
+          git clone https://github.com/microsoft/vcpkg.git
+          cd vcpkg
+          .\bootstrap-vcpkg.bat
+          .\vcpkg.exe install glew freeglut
+          cd ..
 
       - name: Configure CMake (Windows)
         run: cmake -B build -S . ^
           -DCMAKE_BUILD_TYPE=Release ^
-          -DCMAKE_TOOLCHAIN_FILE=%VCPKG_ROOT%\scripts\buildsystems\vcpkg.cmake
+          -DCMAKE_TOOLCHAIN_FILE=$Env:USERPROFILE\vcpkg\scripts\buildsystems\vcpkg.cmake
 
-      - name: Build project (Windows)
+      - name: Build project
         run: cmake --build build --config Release
 
       - name: Archive build artifacts
