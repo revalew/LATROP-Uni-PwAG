@@ -70,6 +70,17 @@ jobs:
           sudo apt install -y cmake mingw-w64 gcc-mingw-w64 g++-mingw-w64
           sudo apt install -y libglew-dev freeglut3-dev libglu1-mesa-dev libgl1-mesa-dev
 
+      - name: Install FreeGLUT for MinGW
+        run: |
+          wget http://prdownloads.sourceforge.net/freeglut/freeglut-3.2.2.tar.gz
+          tar -xzf freeglut-3.2.2.tar.gz
+          cd freeglut-3.2.2
+          mkdir build
+          cd build
+          cmake .. -G "MinGW Makefiles" -DCMAKE_SYSTEM_NAME=Windows -DCMAKE_C_COMPILER=x86_64-w64-mingw32-gcc -DCMAKE_CXX_COMPILER=x86_64-w64-mingw32-g++
+          mingw32-make
+          mingw32-make install
+
       - name: Build project
         run: |
           mkdir build
@@ -91,7 +102,7 @@ jobs:
           name: windows-artifacts
           path: build-artifacts-windows.tar.gz
 
-          
+
   create-release:
     name: Create GitHub Release
     runs-on: ubuntu-latest
