@@ -53,7 +53,7 @@ jobs:
 
   build-and-release-windows:
     name: Build and Upload Release Artifact (Windows)
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     permissions:
       contents: write
@@ -64,25 +64,33 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install dependencies
-        run: |
-          sudo apt update
-          sudo apt install -y cmake mingw-w64 gcc-mingw-w64 g++-mingw-w64
-          sudo apt install -y libglew-dev freeglut3-dev libglu1-mesa-dev libgl1-mesa-dev
+      # Instalujemy i konfigurujemy vcpkg - to najprostsza metoda na Windows
+      - name: Set up vcpkg
+        uses: lukka/get-vcpkg@v11
+        with:
+          # Możesz ustawić konkretną gałąź/commit vcpkg, jeśli chcesz
+          # vcpkgGitCommitId: 'master'
+          # domyślnie pobiera aktualną wersję
+          install: false
 
-      - name: Build project
+      - name: Install dependencies with vcpkg
         run: |
-          mkdir build
-          cd build
-          cmake .. -DCMAKE_TOOLCHAIN_FILE=../windows-toolchain.cmake
-          cmake --build . --config Release --VERBOSE=1
+          vcpkg install glew freeglut
+
+      - name: Configure CMake (Windows)
+        run: cmake -B build -S . ^
+          -DCMAKE_BUILD_TYPE=Release ^
+          -DCMAKE_TOOLCHAIN_FILE=%VCPKG_ROOT%\scripts\buildsystems\vcpkg.cmake
+
+      - name: Build project (Windows)
+        run: cmake --build build --config Release
 
       - name: Archive build artifacts
         run: |
           mkdir artifacts
-          cp build/latrop.exe artifacts/
-          cp -r build/data artifacts/data
-          cp -r build/maps artifacts/maps
+          copy build\Release\latrop.exe artifacts\ 
+          xcopy build\data artifacts\data /E/H/Q/Y
+          xcopy build\maps artifacts\maps /E/H/Q/Y
           tar -czf build-artifacts-windows.tar.gz -C artifacts .
 
       - name: Upload artifact

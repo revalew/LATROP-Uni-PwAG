@@ -26,17 +26,10 @@ if(GLEW_FOUND)
 endif()
 
 # Link the libraries to the target
-if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
-    message(STATUS "Applying Windows-specific settings")
-    
-    # Link with Windows-specific libraries
-    target_link_libraries(${EXE_NAME} PRIVATE opengl32 glu32)
-else()
     # Default to Linux settings
-    target_link_libraries(${EXE_NAME} PRIVATE OpenGL::GL GLU)
-    target_link_libraries(${EXE_NAME} PRIVATE ${GLUT_LIBRARIES})
-    target_link_libraries(${EXE_NAME} PRIVATE GLUT::GLUT)
-endif()
+target_link_libraries(${EXE_NAME} PRIVATE OpenGL::GL GLU)
+target_link_libraries(${EXE_NAME} PRIVATE ${GLUT_LIBRARIES})
+target_link_libraries(${EXE_NAME} PRIVATE GLUT::GLUT)
 
 # Add a custom target to run the executable
 add_custom_target(run COMMAND ./${EXE_NAME})
