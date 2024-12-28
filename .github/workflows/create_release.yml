@@ -72,7 +72,6 @@ jobs:
           git clone https://github.com/microsoft/vcpkg.git
           cd vcpkg
           .\bootstrap-vcpkg.bat
-          .\vcpkg.exe integrate install
           .\vcpkg.exe install glew:x64-windows freeglut:x64-windows opengl:x64-windows
 
       - name: Build project
