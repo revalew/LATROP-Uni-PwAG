@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.10)
 set(EXE_NAME latrop)
 set(CMAKE_BUILD_TYPE Release)
 
@@ -15,19 +15,16 @@ add_executable(${EXE_NAME} ${SOURCES})
 
 # Find and link required libraries
 set(OpenGL_GL_PREFERENCE GLVND)
+
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(GLUT REQUIRED)
 
-if(GLEW_FOUND)
-#   message(STATUS "GLEW found: ${GLEW_INCLUDE_DIRS}")
-  target_include_directories(${EXE_NAME} PRIVATE ${GLEW_INCLUDE_DIRS})
-  target_link_libraries(${EXE_NAME} PRIVATE GLEW::GLEW)
-endif()
-
 # Link the libraries to the target
-target_link_libraries(${EXE_NAME} PRIVATE OpenGL::GL GLU GLEW)
+target_link_libraries(${EXE_NAME} PRIVATE OpenGL::GL GLU)
+target_link_libraries(${EXE_NAME} PRIVATE GLEW::GLEW)
 target_link_libraries(${EXE_NAME} PRIVATE ${GLUT_LIBRARIES})
+target_link_libraries(${EXE_NAME} PRIVATE GLUT::GLUT)
 
 
 # Add a custom target to run the executable
