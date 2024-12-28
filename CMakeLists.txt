@@ -15,7 +15,6 @@ add_executable(${EXE_NAME} ${SOURCES})
 
 # Find and link required libraries
 set(OpenGL_GL_PREFERENCE GLVND)
-set(CMAKE_TOOLCHAIN_FILE "${CMAKE_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake" CACHE STRING "Vcpkg toolchain file")
 
 find_package(OpenGL REQUIRED)
 find_package(GLUT REQUIRED)
