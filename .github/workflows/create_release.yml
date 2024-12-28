@@ -70,14 +70,13 @@ jobs:
           sudo apt install -y cmake mingw-w64 gcc-mingw-w64 g++-mingw-w64
           sudo apt install -y libglew-dev freeglut3-dev libglu1-mesa-dev libgl1-mesa-dev
 
-          - name: Build project
-          run: |
-            mkdir build
-            cd build
-            cmake .. -DCMAKE_TOOLCHAIN_FILE=../windows-toolchain.cmake
-            cmake --build . --config Release --VERBOSE=1
+      - name: Build project
+        run: |
+          mkdir build
+          cd build
+          cmake .. -DCMAKE_TOOLCHAIN_FILE=../windows-toolchain.cmake
+          cmake --build . --config Release --VERBOSE=1
 
-          
       - name: Archive build artifacts
         run: |
           mkdir artifacts
@@ -92,6 +91,7 @@ jobs:
           name: windows-artifacts
           path: build-artifacts-windows.tar.gz
 
+          
   create-release:
     name: Create GitHub Release
     runs-on: ubuntu-latest
