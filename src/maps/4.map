@@ -1,0 +1,21 @@
+! Cube Map Example
+
+! Start
+s 2.5 1 5
+
+! Light position
+l 5 5 5
+
+! Floor
+t 0 0 0 10 1 10
+
+! Left wall
+w 0 0 0 1 10 10
+! Right wall
+w 9 0 0 10 10 10
+! Front wall
+w 0 0 0 10 10 1
+! Back wall
+w 0 0 9 10 10 10
+! Ceiling
+t 0 10 0 10 11 10
