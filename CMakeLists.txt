@@ -16,13 +16,23 @@ add_executable(${EXE_NAME} ${SOURCES})
 # Find and link required libraries
 set(OpenGL_GL_PREFERENCE GLVND)
 find_package(OpenGL REQUIRED)
+# find_package(GLEW REQUIRED)
+# find_package(GLU REQUIRED)
+# find_package(GLUT REQUIRED)
 find_package(GLEW REQUIRED)
-find_package(GLU REQUIRED)
-find_package(GLUT REQUIRED)
-
+if(GLEW_FOUND)
+#   message(STATUS "GLEW found: ${GLEW_INCLUDE_DIRS}")
+  target_include_directories(${EXE_NAME} PRIVATE ${GLEW_INCLUDE_DIRS})
+  target_link_libraries(${EXE_NAME} PRIVATE GLEW::GLEW)
+endif()
+find_package(FreeGLUT CONFIG REQUIRED)
+if(FreeGLUT_FOUND)
+#   message(STATUS "FreeGLUT found")
+  target_link_libraries(${EXE_NAME} PRIVATE FreeGLUT::freeglut)
+endif()
 # Link the libraries to the target
 target_link_libraries(${EXE_NAME} PRIVATE OpenGL::GL GLU GLEW)
-target_link_libraries(${EXE_NAME} PRIVATE ${GLUT_LIBRARIES})
+# target_link_libraries(${EXE_NAME} PRIVATE ${GLUT_LIBRARIES})
 
 
 # Add a custom target to run the executable
