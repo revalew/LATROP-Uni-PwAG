@@ -2,10 +2,10 @@ name: Build and Release CMake Project
 
 on:
   push:
-    # branches:
-    #   - master
-    tags:
-      - '*' # Push events to every tag not containing /
+    branches:
+      - master
+    # tags:
+    #   - '*' # Push events to every tag not containing /
 
 jobs:
   build-and-release-linux:
@@ -69,12 +69,15 @@ jobs:
           git clone https://github.com/microsoft/vcpkg.git
           cd vcpkg
           .\bootstrap-vcpkg.bat
+          .\vcpkg.exe integrate install
           .\vcpkg.exe install glew freeglut
           cd ..
 
-      - name: Configure CMake (Windows)
-        run: cmake -B build -S . -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="$env:VCPKG_ROOT\scripts\buildsystems\vcpkg.cmake"
+      - name: Set VCPKG_ROOT
+        run: echo "VCPKG_ROOT=$PWD/vcpkg" >> $GITHUB_ENV
         
+      - name: Configure CMake (Windows)
+        run: cmake -B build -S . -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="$env:VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake"
 
       - name: Build project
         run: cmake --build build --config Release
