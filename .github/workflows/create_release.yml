@@ -87,8 +87,8 @@ jobs:
         run: |
           mkdir artifacts
           copy build\Release\latrop.exe artifacts\ 
-          xcopy build\Release\data artifacts\data /E/H/Q/Y
-          xcopy build\Release\maps artifacts\maps /E/H/Q/Y
+          xcopy src\data artifacts\data /E/H/I/Q/Y
+          xcopy src\maps artifacts\maps /E/H/I/Q/Y
           tar -czf build-artifacts-windows.tar.gz -C artifacts .
 
       - name: Upload artifact
@@ -107,13 +107,13 @@ jobs:
 
     steps:
       - name: Download Linux artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: linux-artifacts
           path: linux
 
       - name: Download Windows artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: windows-artifacts
           path: windows
