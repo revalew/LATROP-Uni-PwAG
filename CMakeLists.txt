@@ -27,12 +27,8 @@ target_link_libraries(${EXE_NAME} PRIVATE OpenGL::GL GLU)
 message(STATUS "GLEW_INCLUDE_DIRS: ${GLEW_INCLUDE_DIRS}")
 message(STATUS "GLEW_LIBRARIES: ${GLEW_LIBRARIES}")
 
-if(GLEW_FOUND)
-  target_include_directories(${EXE_NAME} PRIVATE ${GLEW_INCLUDE_DIRS})
-  target_link_libraries(${EXE_NAME} PRIVATE GLEW::GLEW)
-endif()
-
 target_link_libraries(${EXE_NAME} PRIVATE ${GLEW_LIBRARIES})
+target_link_libraries(${EXE_NAME} PRIVATE GLEW::GLEW)
 target_link_libraries(${EXE_NAME} PRIVATE ${GLUT_LIBRARIES})
 target_link_libraries(${EXE_NAME} PRIVATE GLUT::GLUT)
 
