@@ -86,7 +86,8 @@ jobs:
 
       - name: Install Windows SDK
         run: |
-          winget install -e --id Microsoft.WindowsSDK -i
+          curl -L -o windows-sdk-installer.exe https://aka.ms/installwindows-sdk
+          windows-sdk-installer.exe /quiet /norestart /features +DebuggingTools,+WindowsAppSDK,+ApplicationVerifier
 
       - name: Generate test certificate
         run: |
