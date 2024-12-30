@@ -73,11 +73,8 @@ jobs:
           .\vcpkg.exe install glew freeglut
           cd ..
 
-      - name: Set VCPKG_ROOT
-        run: echo "VCPKG_ROOT=$PWD/vcpkg" >> $GITHUB_ENV
-        
       - name: Configure CMake (Windows)
-        run: cmake -B build -S . -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="$env:VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake"
+        run: cmake -B build -S . -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="./vcpkg/scripts/buildsystems/vcpkg.cmake"
 
       - name: Build project
         run: cmake --build build --config Release
@@ -95,7 +92,6 @@ jobs:
         with:
           name: windows-artifacts
           path: build-artifacts-windows.tar.gz
-
 
   create-release:
     name: Create GitHub Release
