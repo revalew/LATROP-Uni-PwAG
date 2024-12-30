@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.16)
 set(EXE_NAME latrop)
 set(CMAKE_BUILD_TYPE Release)
 
@@ -32,7 +32,7 @@ if(WIN32)
   
   # target_link_libraries(${EXE_NAME} PUBLIC ${GLEW_LIBRARIES})
   # target_link_libraries(${EXE_NAME} PUBLIC ${GLUT_LIBRARIES})
-  target_link_libraries(${EXE_NAME} PUBLIC GLEW::glew GLEW::glew_s OpenGL::GL OpenGL::GLU GLUT::GLUT)
+  target_link_libraries(${EXE_NAME} PUBLIC GLEW::glew OpenGL::GL OpenGL::GLU GLUT::GLUT)
 else()
   # Linux-specific configurations
   find_package(OpenGL REQUIRED)
