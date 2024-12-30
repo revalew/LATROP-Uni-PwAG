@@ -24,13 +24,22 @@ find_package(GLEW REQUIRED)
   # Default to Linux settings
 target_link_libraries(${EXE_NAME} PRIVATE OpenGL::GL GLU)
 
+
 message(STATUS "GLEW_INCLUDE_DIRS: ${GLEW_INCLUDE_DIRS}")
 message(STATUS "GLEW_LIBRARIES: ${GLEW_LIBRARIES}")
+
+if(WIN32)
+    target_compile_definitions(${EXE_NAME} PRIVATE GLEW_STATIC)
+else()
+    # Linux-specific configurations
+endif()
+
 
 target_link_libraries(${EXE_NAME} PRIVATE ${GLEW_LIBRARIES})
 target_link_libraries(${EXE_NAME} PRIVATE GLEW::GLEW)
 target_link_libraries(${EXE_NAME} PRIVATE ${GLUT_LIBRARIES})
 target_link_libraries(${EXE_NAME} PRIVATE GLUT::GLUT)
+target_link_libraries(${EXE_NAME} PRIVATE OpenGL::GL GLEW::GLEW GLUT::GLUT)
 
 
 # Add a custom target to run the executable
