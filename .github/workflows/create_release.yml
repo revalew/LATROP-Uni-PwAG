@@ -35,6 +35,7 @@ jobs:
           cd build
           cmake ..
           cmake --build . --config Release
+          cd ..
 
       # Archive the build artifacts
       - name: Archive build artifacts
@@ -75,11 +76,10 @@ jobs:
 
       - name: Configure CMake (Windows)
         run: |
-          cmake --help-module-list
-          cmake --help-module FindGLEW
-          cmake --help-module findglew
           cmake -B build -S . -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=D:/a/LATROP-Uni-PwAG/LATROP-Uni-PwAG/vcpkg/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows -G "Visual Studio 17 2022" -A x64
-
+        # cmake --help-module-list
+        # cmake --help-module FindGLEW
+        
       - name: Build project
         run: cmake --build build --config Release
 
@@ -87,8 +87,8 @@ jobs:
         run: |
           mkdir artifacts
           copy build\Release\latrop.exe artifacts\ 
-          xcopy build\data artifacts\data /E/H/Q/Y
-          xcopy build\maps artifacts\maps /E/H/Q/Y
+          xcopy build\Release\data artifacts\data /E/H/Q/Y
+          xcopy build\Release\maps artifacts\maps /E/H/Q/Y
           tar -czf build-artifacts-windows.tar.gz -C artifacts .
 
       - name: Upload artifact
