@@ -19,7 +19,10 @@ set(OpenGL_GL_PREFERENCE GLVND)
 # Link the libraries to the target
 if(WIN32)
   # Windows-specific configurations
-  set(CMAKE_TOOLCHAIN_FILE D:/a/LATROP-Uni-PwAG/LATROP-Uni-PwAG/vcpkg/scripts/buildsystems/vcpkg.cmake CACHE FILEPATH "Path to toolchain")
+  add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+  # set(CMAKE_TOOLCHAIN_FILE D:/a/LATROP-Uni-PwAG/LATROP-Uni-PwAG/vcpkg/scripts/buildsystems/vcpkg.cmake CACHE FILEPATH "Path to toolchain")
+  set(CMAKE_TOOLCHAIN_FILE "${CMAKE_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake" CACHE FILEPATH "Path to vcpkg toolchain file")
+
   find_package(OpenGL REQUIRED)
   find_package(GLUT REQUIRED)
   find_package(GLEW REQUIRED)
@@ -33,8 +36,7 @@ if(WIN32)
   target_compile_definitions(${EXE_NAME} PRIVATE GLEW_STATIC)
   target_link_libraries(${EXE_NAME} PUBLIC ${GLEW_LIBRARIES})
   target_link_libraries(${EXE_NAME} PUBLIC ${GLUT_LIBRARIES})
-  target_link_libraries(${EXE_NAME} PUBLIC OpenGL::GL OpenGL::GLU GLUT::GLUT)
-  target_link_libraries(${EXE_NAME} PUBLIC glew32)
+  target_link_libraries(${EXE_NAME} PUBLIC OpenGL::GL OpenGL::GLU GLUT::GLUT GLEW::GLEW)
 else()
   # Linux-specific configurations
   find_package(OpenGL REQUIRED)
