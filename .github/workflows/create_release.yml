@@ -74,7 +74,7 @@ jobs:
           cd ..
 
       - name: Configure CMake (Windows)
-        run: cmake -B build -S . -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=D:/a/LATROP-Uni-PwAG/LATROP-Uni-PwAG/vcpkg/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows
+        run: cmake -B build -S . -DCMAKE_BUILD_TYPE=Release "-DCMAKE_TOOLCHAIN_FILE=D:/a/LATROP-Uni-PwAG/LATROP-Uni-PwAG/vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=x64-windows
 
       - name: Build project
         run: cmake --build build --config Release
