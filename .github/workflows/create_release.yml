@@ -83,19 +83,17 @@ jobs:
       - name: Build project
         run: cmake --build build --config Release
 
-      - name: Verify Build content
-        run: |
-          dir build
-          dir build\Release
+      # - name: Verify Build content
+      #   run: |
+      #     dir build
+      #     dir build\Release
 
       - name: Archive build artifacts
         run: |
           mkdir artifacts
-          copy build\Release\latrop.exe artifacts\ 
-          xcopy src\data artifacts\data /E/H/I/Q/Y
-          xcopy src\maps artifacts\maps /E/H/I/Q/Y
-          copy vcpkg\installed\x64-windows\bin\freeglut.dll artifacts\
-          copy vcpkg\installed\x64-windows\bin\glew32.dll artifacts\
+          xcopy build\Release artifacts\ /E/H/I/Q/Y
+          xcopy build\data artifacts\data /E/H/I/Q/Y
+          xcopy build\maps artifacts\maps /E/H/I/Q/Y
           tar -czf build-artifacts-windows.tar.gz -C artifacts .
       
       - name: Verify artifacts content

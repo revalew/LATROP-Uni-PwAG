@@ -19,7 +19,8 @@ The main goal of this project was to explore graphical programming concepts, imp
 3. [Features](#features)
 4. [Technical Details](#technical-details)
 5. [Directory Structure](#directory-structure)
-6. [How to Build and Run](#how-to-build-and-run)
+6. [Download precompiled release](#download-precompiled-release)
+7. [How to Build and Run](#how-to-build-and-run)
    - [Requirements](#requirements)
    - [Building the Project](#building-the-project)
    - [Running the Game](#running-the-game)
@@ -100,6 +101,13 @@ Player can use the following controls to play the game:
 - `data/` - Includes textures and shaders.
 - `maps/` - Contains level design files.
 - `build/` - Directory for compiled binaries and temporary build files (created during the build process).
+
+</br>
+</br>
+
+## **Download precompiled release**
+
+You can find precompiled releases for both Linux and Windows in the [releases section](https://github.com/revalew/LATROP-Uni-PwAG/releases)
 
 </br>
 </br>
