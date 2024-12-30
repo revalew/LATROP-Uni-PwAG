@@ -32,9 +32,9 @@ if(GLEW_FOUND)
   target_link_libraries(${EXE_NAME} PRIVATE GLEW::GLEW)
 endif()
 
+target_link_libraries(${EXE_NAME} PRIVATE ${GLEW_LIBRARIES})
 target_link_libraries(${EXE_NAME} PRIVATE ${GLUT_LIBRARIES})
 target_link_libraries(${EXE_NAME} PRIVATE GLUT::GLUT)
-target_compile_definitions(${EXE_NAME} PRIVATE GLEW_STATIC)
 
 
 # Add a custom target to run the executable
