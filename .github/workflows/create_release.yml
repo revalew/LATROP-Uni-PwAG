@@ -70,8 +70,7 @@ jobs:
           cd vcpkg
           .\bootstrap-vcpkg.bat
           .\vcpkg.exe integrate install
-          .\vcpkg.exe install freeglut glew:x64-windows --recurse
-          .\vcpkg.exe install glew:x64-windows-static
+          .\vcpkg.exe install opengl freeglut glew
           cd ..
 
       - name: Configure CMake (Windows)
