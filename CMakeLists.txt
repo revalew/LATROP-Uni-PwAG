@@ -32,6 +32,9 @@ if(WIN32)
   
   # target_link_libraries(${EXE_NAME} PUBLIC ${GLEW_LIBRARIES})
   # target_link_libraries(${EXE_NAME} PUBLIC ${GLUT_LIBRARIES})
+  # https://github.com/nigels-com/glew/blob/master/build/cmake/CMakeLists.txt
+  # https://discourse.cmake.org/t/the-findglew-cmake-module-does-not-set-glew-libraries-in-some-cases/989/6
+  # https://stackoverflow.com/questions/66491814/cmake-not-finding-gl-glew-h
   target_link_libraries(${EXE_NAME} PUBLIC GLEW::glew OpenGL::GL OpenGL::GLU GLUT::GLUT)
 else()
   # Linux-specific configurations
