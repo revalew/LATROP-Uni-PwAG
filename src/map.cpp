@@ -1,5 +1,6 @@
 #ifdef _WIN32
 	#include <windows.h>
+	#include <GL/glext.h>
 #endif
 
 #include "map.hpp"
