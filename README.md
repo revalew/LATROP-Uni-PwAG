@@ -107,7 +107,9 @@ Player can use the following controls to play the game:
 
 ## **Download precompiled release**
 
-You can find precompiled releases for both Linux and Windows in the [releases section](https://github.com/revalew/LATROP-Uni-PwAG/releases)
+You can find precompiled releases for both Linux and Windows in the [releases section](https://github.com/revalew/LATROP-Uni-PwAG/releases).
+
+On Windows, the `latrop.exe` will display a warning that the application is potentially dangerous (I don't want to get into exe signing right now...). No malicious code has been injected into this game (yet... :skull: but you can check the [workflow file](./.github/workflows/create_release.yml) and [source code](./src/) yourself), so you can safely click `More info` and `Run anyway`.
 
 </br>
 </br>

@@ -84,32 +84,33 @@ jobs:
         run: cmake --build build --config Release
 
 
-      - name: Install Windows SDK
-        run: |
-          curl -L -o windows-sdk-installer.exe https://aka.ms/installwindows-sdk
-          windows-sdk-installer.exe /quiet /norestart /features +DebuggingTools,+WindowsAppSDK,+ApplicationVerifier
+      # - name: Download and Install Windows SDK
+      #   run: |
+      #     curl -L -o windows-sdk-installer.exe https://aka.ms/installwindows-sdk
+      #     .\windows-sdk-installer.exe /quiet /norestart /features +DebuggingTools,+WindowsAppSDK,+ApplicationVerifier
+      #   shell: cmd
+      
 
-      - name: Generate test certificate
-        run: |
-          powershell -Command "
-            mkdir cert && cd cert;
-            $env:CertPath = 'test-cert.cer';
-            $env:PfxPath = 'test-cert.pfx';
-            $env:KeyName = 'TestKey';
-            makecert -r -pe -n \"CN=TestCertificate\" -a sha256 -len 2048 -cy end -sv $env:KeyName.pvk $env:CertPath;
-            pvk2pfx -pvk $env:KeyName.pvk -spc $env:CertPath -pfx $env:PfxPath -po Password123;
-          "
-        shell: cmd
+      # - name: Generate test certificate
+      #   run: |
+      #     powershell -Command "
+      #       mkdir cert && cd cert;
+      #       $env:CertPath = 'test-cert.cer';
+      #       $env:PfxPath = 'test-cert.pfx';
+      #       $env:KeyName = 'TestKey';
+      #       makecert -r -pe -n \"CN=TestCertificate\" -a sha256 -len 2048 -cy end -sv $env:KeyName.pvk $env:CertPath;
+      #       pvk2pfx -pvk $env:KeyName.pvk -spc $env:CertPath -pfx $env:PfxPath -po Password123;
+      #     "
+      #   shell: cmd
   
-      - name: Sign the executable
-        run: |
-          "C:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe" sign /f cert/test-cert.pfx /p Password123 /fd sha256 /t http://timestamp.digicert.com build\Release\latrop.exe
+      # - name: Sign the executable
+      #   run: |
+      #     "C:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe" sign /f cert/test-cert.pfx /p Password123 /fd sha256 /t http://timestamp.digicert.com build\Release\latrop.exe
 
-      - name: Verify signature
-        run: |
-          "C:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe" verify /pa /v build\Release\latrop.exe
+      # - name: Verify signature
+      #   run: |
+      #     "C:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe" verify /pa /v build\Release\latrop.exe
         
-
       # - name: Verify Build content
       #   run: |
       #     dir build
