@@ -1,6 +1,7 @@
 #include "main.hpp"
 #include "box.hpp"
 #include "resources.hpp"
+#include <iostream>
 
 // Global variables
 bool wireframe_mode = false; // Initialize as false
@@ -355,7 +356,11 @@ void setup(int *argc, char **argv) {
 	glutSetCursor(GLUT_CURSOR_NONE);
 	resize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 	// Initialize GLEW
-	glewInit();
+	GLenum err = glewInit();
+	if (GLEW_OK != err) {
+		std::cerr << "GLEW Error: " << glewGetErrorString(err) << std::endl;
+		exit(EXIT_FAILURE);
+	}
 
 	// Reset keystates
 	for(int i = 0; i < 256; i++) keystates[i] = false;
