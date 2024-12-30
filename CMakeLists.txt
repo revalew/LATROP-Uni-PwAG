@@ -23,9 +23,9 @@ if(WIN32)
   # set(CMAKE_TOOLCHAIN_FILE D:/a/LATROP-Uni-PwAG/LATROP-Uni-PwAG/vcpkg/scripts/buildsystems/vcpkg.cmake CACHE FILEPATH "Path to toolchain")
   set(CMAKE_TOOLCHAIN_FILE "${CMAKE_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake" CACHE FILEPATH "Path to vcpkg toolchain file")
 
-  find_package(GLEW REQUIRED)
-  find_package(OpenGL REQUIRED)
-  find_package(GLUT REQUIRED)
+  # find_package(GLEW REQUIRED)
+  # find_package(OpenGL REQUIRED)
+  # find_package(GLUT REQUIRED)
 
   # set(PKGPATH "D:/a/LATROP-Uni-PwAG/LATROP-Uni-PwAG/vcpkg/installed/x64-windows")
   # list(APPEND CMAKE_PREFIX_PATH ${PKGPATH})
