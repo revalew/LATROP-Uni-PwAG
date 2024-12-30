@@ -33,7 +33,7 @@ if(WIN32)
   target_compile_definitions(${EXE_NAME} PRIVATE GLEW_STATIC)
   target_link_libraries(${EXE_NAME} PUBLIC ${GLEW_LIBRARIES})
   target_link_libraries(${EXE_NAME} PUBLIC ${GLUT_LIBRARIES})
-  target_link_libraries(${EXE_NAME} PUBLIC OpenGL::GL GLU GLUT::GLUT)
+  target_link_libraries(${EXE_NAME} PUBLIC OpenGL::GL OpenGL::GLU GLUT::GLUT)
   target_link_libraries(${EXE_NAME} PUBLIC glew32)
 else()
   # Linux-specific configurations
