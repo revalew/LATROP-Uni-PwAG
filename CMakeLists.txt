@@ -27,8 +27,8 @@ if(WIN32)
   find_package(OpenGL REQUIRED)
   find_package(GLUT REQUIRED)
 
-  set(PKGPATH "D:/a/LATROP-Uni-PwAG/LATROP-Uni-PwAG/vcpkg/installed/x64-windows")
-  list(APPEND CMAKE_PREFIX_PATH ${PKGPATH})
+  # set(PKGPATH "D:/a/LATROP-Uni-PwAG/LATROP-Uni-PwAG/vcpkg/installed/x64-windows")
+  # list(APPEND CMAKE_PREFIX_PATH ${PKGPATH})
   
   # target_link_libraries(${EXE_NAME} PUBLIC ${GLEW_LIBRARIES})
   # target_link_libraries(${EXE_NAME} PUBLIC ${GLUT_LIBRARIES})
