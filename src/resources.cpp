@@ -1,3 +1,7 @@
+#ifdef _WIN32
+	#include <windows.h>
+#endif
+
 #include <GL/glew.h> // Needs to be imported before Resource.hpp as it includes gl.h
 #include "resources.hpp"
 #include <fstream>

@@ -7,9 +7,17 @@
 #define CONST_DT 0.017f // FRAMETIME in seconds. Used for updating game logic
 #define RADDEG 57.29577951308232088 // 180/PI
 
-#include <GL/glew.h>
-#include <GL/glut.h>
-#include <GL/glext.h>
+#ifdef _WIN32
+    #include <windows.h>
+    #include <GL/glew.h>
+    #include <GL/freeglut.h>
+    #include <GL/glext.h>
+#elif defined(__linux__)
+    #include <GL/glew.h>
+    #include <GL/glut.h>
+    #include <GL/glext.h>
+#endif
+
 #include "player.hpp"
 #include "map.hpp"
 

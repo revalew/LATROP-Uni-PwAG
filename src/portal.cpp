@@ -1,3 +1,7 @@
+#ifdef _WIN32
+	#include <windows.h>
+#endif
+
 #include <cmath>
 #include <GL/glut.h>
 #include "portal.hpp"
