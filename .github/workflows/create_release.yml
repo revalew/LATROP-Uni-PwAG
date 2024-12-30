@@ -2,10 +2,10 @@ name: Build and Release CMake Project
 
 on:
   push:
-    branches:
-      - master
-    # tags:
-    #   - '*' # Push events to every tag not containing /
+    # branches:
+    #   - master
+    tags:
+      - '*' # Push events to every tag not containing /
 
 jobs:
   build-and-release-linux:
