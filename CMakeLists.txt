@@ -32,7 +32,7 @@ if(WIN32)
   list(APPEND CMAKE_PREFIX_PATH ${PKGPATH})
   find_package(GLEW REQUIRED QUIET)
   target_compile_definitions(${EXE_NAME} PUBLIC GLEW_BUILD)
-  target_link_libraries(${EXE_NAME} PUBLIC OpenGL::GL GLU GLEW::GLEW GLUT::GLUT)
+  target_link_libraries(${EXE_NAME} PUBLIC OpenGL::GL GLU GLUT::GLUT)
   target_link_libraries(${EXE_NAME} glew32s)
 else()
     # Linux-specific configurations
