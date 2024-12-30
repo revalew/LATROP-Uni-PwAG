@@ -1,8 +1,8 @@
 #ifndef __PLAYER_HPP
 #define __PLAYER_HPP
 
-#include "map.hpp"
 #include "portal.hpp"
+#include "map.hpp"
 #include "shot.hpp"
 
 enum PLAYER_STATE { PS_ALIVE, PS_DYING, PS_WON };

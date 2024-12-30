@@ -2,9 +2,9 @@
 	#include <windows.h>
 #endif
 
+#include "portal.hpp"
 #include <cmath>
 #include <GL/glut.h>
-#include "portal.hpp"
 #include "resources.hpp"
 
 /**
