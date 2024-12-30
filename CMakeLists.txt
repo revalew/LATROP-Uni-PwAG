@@ -16,15 +16,14 @@ add_executable(${EXE_NAME} ${SOURCES})
 # Find and link required libraries
 set(OpenGL_GL_PREFERENCE GLVND)
 
-find_package(OpenGL REQUIRED)
-find_package(GLUT REQUIRED)
-find_package(GLEW REQUIRED)
-
 # Link the libraries to the target
-# target_link_libraries(${EXE_NAME} PRIVATE OpenGL::GL GLU)
-
 if(WIN32)
   # Windows-specific configurations
+  set(CMAKE_TOOLCHAIN_FILE D:/a/LATROP-Uni-PwAG/LATROP-Uni-PwAG/vcpkg/scripts/buildsystems/vcpkg.cmake CACHE FILEPATH "Path to toolchain")
+  find_package(OpenGL REQUIRED)
+  find_package(GLUT REQUIRED)
+  find_package(GLEW REQUIRED)
+
   message(STATUS "GLEW_INCLUDE_DIRS: ${GLEW_INCLUDE_DIRS}")
   message(STATUS "GLEW_LIBRARIES: ${GLEW_LIBRARIES}")
   set(PKGPATH "D:/a/LATROP-Uni-PwAG/LATROP-Uni-PwAG/vcpkg/installed/x64-windows")
@@ -34,14 +33,18 @@ if(WIN32)
   target_compile_definitions(${EXE_NAME} PRIVATE GLEW_STATIC)
   target_link_libraries(${EXE_NAME} PUBLIC ${GLEW_LIBRARIES})
   target_link_libraries(${EXE_NAME} PUBLIC ${GLUT_LIBRARIES})
-  target_link_libraries(${EXE_NAME} PUBLIC OpenGL::GL GLEW::GLEW GLUT::GLUT)
+  target_link_libraries(${EXE_NAME} PRIVATE OpenGL::GL GLU GLEW::GLEW GLUT::GLUT)
 else()
-    # Linux-specific configurations
-    target_link_libraries(${EXE_NAME} PUBLIC ${GLEW_LIBRARIES})
-    target_link_libraries(${EXE_NAME} PUBLIC GLEW::GLEW)
-    target_link_libraries(${EXE_NAME} PUBLIC ${GLUT_LIBRARIES})
-    target_link_libraries(${EXE_NAME} PUBLIC GLUT::GLUT)
-    target_link_libraries(${EXE_NAME} PUBLIC OpenGL::GL GLU GLEW::GLEW GLUT::GLUT)
+  # Linux-specific configurations
+  find_package(OpenGL REQUIRED)
+  find_package(GLUT REQUIRED)
+  find_package(GLEW REQUIRED)
+
+  target_link_libraries(${EXE_NAME} PUBLIC ${GLEW_LIBRARIES})
+  target_link_libraries(${EXE_NAME} PRIVATE GLEW::GLEW)
+  target_link_libraries(${EXE_NAME} PUBLIC ${GLUT_LIBRARIES})
+  target_link_libraries(${EXE_NAME} PRIVATE GLUT::GLUT)
+  target_link_libraries(${EXE_NAME} PRIVATE OpenGL::GL GLU GLEW::GLEW GLUT::GLUT)
 endif()
 
 
