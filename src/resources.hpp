@@ -1,6 +1,13 @@
 #ifndef __RESOURCES_HPP
 #define __RESOURCES_HPP
 
+#ifdef _WIN32
+	#include <windows.h>
+	#include <GL/glew.h>
+	#include <GL/gl.h>
+	#include <GL/glext.h>
+#endif
+
 #include <GL/glut.h>
 
 #define NUM_SHADERS 2
