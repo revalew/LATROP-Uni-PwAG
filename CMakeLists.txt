@@ -21,7 +21,7 @@ find_package(GLUT REQUIRED)
 find_package(GLEW REQUIRED)
 
 # Link the libraries to the target
-target_link_libraries(${EXE_NAME} PRIVATE OpenGL::GL GLU)
+# target_link_libraries(${EXE_NAME} PRIVATE OpenGL::GL GLU)
 
 if(WIN32)
   # Windows-specific configurations
@@ -39,8 +39,8 @@ if(WIN32)
   target_link_libraries(${EXE_NAME} glew32s)
 else()
     # Linux-specific configurations
-    target_link_libraries(${EXE_NAME} PRIVATE ${GLEW_LIBRARIES})
-    target_link_libraries(${EXE_NAME} PRIVATE GLEW::GLEW)
+    target_link_libraries(${EXE_NAME} PUBLIC ${GLEW_LIBRARIES})
+    target_link_libraries(${EXE_NAME} PUBLIC GLEW::GLEW)
     target_link_libraries(${EXE_NAME} PRIVATE ${GLUT_LIBRARIES})
     target_link_libraries(${EXE_NAME} PRIVATE GLUT::GLUT)
     target_link_libraries(${EXE_NAME} PRIVATE OpenGL::GL GLU GLEW::GLEW GLUT::GLUT)
