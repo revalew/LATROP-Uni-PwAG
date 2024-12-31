@@ -45,6 +45,7 @@ jobs:
         run: |
           mkdir artifacts
           cp build/latrop artifacts/  # Copy the latrop binary
+          cp docs/START.md artifacts/  # Copy the start and troubleshooting file
           cp docs/CONTROLS.md artifacts/  # Copy the control scheme
           cp -r build/data artifacts/  # Copy the data folder
           cp -r build/maps artifacts/  # Copy the maps folder
@@ -131,6 +132,7 @@ jobs:
         run: |
           mkdir artifacts
           xcopy build\Release artifacts\ /E/H/I/Q/Y
+          xcopy docs\START.md artifacts\ /Y
           xcopy docs\CONTROLS.md artifacts\ /Y
           xcopy build\data artifacts\data /E/H/I/Q/Y
           xcopy build\maps artifacts\maps /E/H/I/Q/Y

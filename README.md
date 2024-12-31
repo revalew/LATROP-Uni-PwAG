@@ -24,6 +24,7 @@ The main goal of this project was to explore graphical programming concepts, imp
    - [Requirements](#requirements)
    - [Building the Project](#building-the-project)
    - [Running the Game](#running-the-game)
+8. [Troubleshooting](#troubleshooting)
 
 </br>
 </br>
@@ -43,31 +44,7 @@ The game combines logic, and creativity to complete each level.
 
 ## **Control scheme**
 
-Player can use the following controls to play the game:
-
-1. **Movement**
-
-- `W/S/A/D` - Move forward, backward, left, and right,
-- `Space` - Jump.
-
-</br>
-
-2. **Camera control**
-
-- `Mouse` - Look around the game world,
-- `Left Click` - Create a blue portal,
-- `Right Click` - Create a orange portal.
-
-</br>
-
-3. **Additional commands**
-
-- `Esc` - Pause / Resume the game,
-- `Return` - Restart the level after death or completing a level,
-- `1-9` - Select a level (or restart),
-- `R` - Reset the portals,
-- `B` - Toggle the normal mapping mode,
-- `N` - Toggle the wireframe mode.
+Have a look at the control scheme [here](./docs/CONTROLS.md).
 
 </br>
 </br>
@@ -100,16 +77,19 @@ Player can use the following controls to play the game:
 - `src/` - Contains the C++ source code files for the game and all of the assets (shaders, textures, and maps).
 - `data/` - Includes textures and shaders.
 - `maps/` - Contains level design files.
-- `build/` - Directory for compiled binaries and temporary build files (created during the build process).
+- `build/` - Directory for compiled binaries and temporary build files (created during the build process),
+- `docs/` - Additional documentation (control scheme, troubleshooting, etc.).
 
 </br>
 </br>
 
 ## **Download precompiled release**
 
-You can find precompiled releases for both Linux and Windows in the [releases section](https://github.com/revalew/LATROP-Uni-PwAG/releases).
+You can find precompiled releases for both **GNU/Linux** and **Windows** in the [releases section](https://github.com/revalew/LATROP-Uni-PwAG/releases).
 
-On Windows, the `latrop.exe` will display a warning that the application is potentially dangerous (I don't want to get into exe signing right now...). No malicious code has been injected into this game (yet... :skull: but you can check the [workflow file](./.github/workflows/create_release.yml) and [source code](./src/) yourself), so you can safely click `More info` and `Run anyway`.
+Each build comes with additional documentation (in markdown format) for easy reference.
+
+**On Windows**, the `latrop.exe` will display a warning that the application is potentially dangerous (I don't want to get into exe signing right now...). No malicious code has been injected into this game (yet... :skull: but you can check the [workflow file](./.github/workflows/create_release.yml) and [source code](./src/) yourself), so you can safely click `More info` and `Run anyway`.
 
 </br>
 </br>
@@ -223,3 +203,10 @@ After building, execute the game (_inside the build folder_):
 ```bash
 ./latrop
 ```
+
+</br>
+</br>
+
+## **Troubleshooting**
+
+Take a look at the most common problems and how to fix them [here](./docs/START.md).

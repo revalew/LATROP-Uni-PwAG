@@ -1,10 +1,13 @@
 ! Cube Map Example
 
 ! Start
-s 2.5 1 5
+s 3.5 2 5
+
+! Cake
+c 5 7 5
 
 ! Light position
-l 5 5 5
+l 5 6 5
 
 ! Floor
 t 0 0 0 10 1 10
