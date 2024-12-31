@@ -1,4 +1,4 @@
-name: Build and Release CMake Project
+name: Build and Release CMake Project (Linux and Windows)
 
 on:
   push:
@@ -12,7 +12,7 @@ jobs:
   # Build executable for GNU/Linux
   #########################################
   build-and-release-linux:
-    name: Build and Upload Release Artifact (Linux)
+    name: (Linux) Build and Upload Release Artifact
     runs-on: ubuntu-latest
 
     permissions:
@@ -51,19 +51,17 @@ jobs:
           tar -czf linux-build.tar.gz -C artifacts .
 
       # Upload the build as artifact for the release job
-      - name: Upload artifact
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: linux-artifacts
           path: linux-build.tar.gz
 
-
-
   #########################################
   # Build exe for Windows
   #########################################
   build-and-release-windows:
-    name: Build and Upload Release Artifact (Windows)
+    name: (Windows) Build and Upload Release Artifact
     runs-on: windows-latest
 
     permissions:
@@ -142,13 +140,11 @@ jobs:
       #   run: dir artifacts
 
       # Upload the build as artifact for the release job
-      - name: Upload artifact
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: windows-artifacts
           path: windows-build.tar.gz
-
-
 
   #########################################
   # Create GitHub Release
@@ -188,7 +184,7 @@ jobs:
           path: windows
 
       # Fetch the history of commits to append to the release
-      - name: Fetch commit messages
+      - name: Fetch and format commit messages
         id: get_commits
         run: |
           PREVIOUS_TAG=$(git describe --tags --abbrev=0 HEAD^)
@@ -234,7 +230,7 @@ jobs:
           ${{ env.FORMATTED_COMMITS }}"
 
       # Upload the artifact as part of the release
-      - name: Upload artifact to GitHub Release
+      - name: Upload artifacts to GitHub Release
         env:
           GITHUB_TOKEN: ${{ github.token }}
         # Upload to GitHub Release using the `gh` CLI.
