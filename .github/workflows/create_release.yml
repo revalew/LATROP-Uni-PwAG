@@ -8,12 +8,15 @@ on:
       - '*' # Push events to every tag not containing /
 
 jobs:
+  #########################################
+  # Build executable for GNU/Linux
+  #########################################
   build-and-release-linux:
     name: Build and Upload Release Artifact (Linux)
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write # Required to upload to a GitHub release
+      contents: write
 
     steps:
       # Check out the repository
@@ -34,7 +37,7 @@ jobs:
           mkdir build
           cd build
           cmake ..
-          cmake --build . --config Release
+          cmake --build . --config Release -j$(nproc)
           cd ..
 
       # Archive the build artifacts
@@ -42,16 +45,23 @@ jobs:
         run: |
           mkdir artifacts
           cp build/latrop artifacts/  # Copy the latrop binary
+          cp docs/CONTROLS.md artifacts/  # Copy the control scheme
           cp -r build/data artifacts/  # Copy the data folder
           cp -r build/maps artifacts/  # Copy the maps folder
-          tar -czf build-artifacts-linux.tar.gz -C artifacts .
+          tar -czf linux-build.tar.gz -C artifacts .
 
+      # Upload the build as artifact for the release job
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: linux-artifacts
-          path: build-artifacts-linux.tar.gz
+          path: linux-build.tar.gz
 
+
+
+  #########################################
+  # Build exe for Windows
+  #########################################
   build-and-release-windows:
     name: Build and Upload Release Artifact (Windows)
     runs-on: windows-latest
@@ -60,12 +70,14 @@ jobs:
       contents: write
 
     steps:
+      # Check out the repository
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Install vcpkg manually
+      # Install dependencies through vcpkg
+      - name: Install vcpkg and packages
         run: |
           git clone https://github.com/microsoft/vcpkg.git
           cd vcpkg
@@ -74,22 +86,22 @@ jobs:
           .\vcpkg.exe integrate install
           cd ..
 
+      # Configure the build using CMake
       - name: Configure CMake (Windows)
         run: |
           cmake -B build -S . -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=D:/a/LATROP-Uni-PwAG/LATROP-Uni-PwAG/vcpkg/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows -G "Visual Studio 17 2022" -A x64
         # cmake --help-module-list
         # cmake --help-module FindGLEW
-        
+
+      # Build using CMake
       - name: Build project
         run: cmake --build build --config Release
-
 
       # - name: Download and Install Windows SDK
       #   run: |
       #     curl -L -o windows-sdk-installer.exe https://aka.ms/installwindows-sdk
       #     .\windows-sdk-installer.exe /quiet /norestart /features +DebuggingTools,+WindowsAppSDK,+ApplicationVerifier
       #   shell: cmd
-      
 
       # - name: Generate test certificate
       #   run: |
@@ -102,7 +114,7 @@ jobs:
       #       pvk2pfx -pvk $env:KeyName.pvk -spc $env:CertPath -pfx $env:PfxPath -po Password123;
       #     "
       #   shell: cmd
-  
+
       # - name: Sign the executable
       #   run: |
       #     "C:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe" sign /f cert/test-cert.pfx /p Password123 /fd sha256 /t http://timestamp.digicert.com build\Release\latrop.exe
@@ -110,37 +122,46 @@ jobs:
       # - name: Verify signature
       #   run: |
       #     "C:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe" verify /pa /v build\Release\latrop.exe
-        
+
       # - name: Verify Build content
       #   run: |
       #     dir build
       #     dir build\Release
 
+      # Create an archive with the build
       - name: Archive build artifacts
         run: |
           mkdir artifacts
           xcopy build\Release artifacts\ /E/H/I/Q/Y
+          xcopy docs\CONTROLS.md artifacts\ /Y
           xcopy build\data artifacts\data /E/H/I/Q/Y
           xcopy build\maps artifacts\maps /E/H/I/Q/Y
-          tar -czf build-artifacts-windows.tar.gz -C artifacts .
-      
+          tar -czf windows-build.tar.gz -C artifacts .
+
       # - name: Verify artifacts content
       #   run: dir artifacts
 
+      # Upload the build as artifact for the release job
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: windows-artifacts
-          path: build-artifacts-windows.tar.gz
+          path: windows-build.tar.gz
 
+
+
+  #########################################
+  # Create GitHub Release
+  #########################################
   create-release:
     name: Create GitHub Release
-    
+
     runs-on: ubuntu-latest
 
     permissions:
       contents: write # IMPORTANT: mandatory for making GitHub Releases
 
+    # Will run only if both builds succeeded
     needs:
       - build-and-release-linux
       - build-and-release-windows
@@ -152,19 +173,21 @@ jobs:
         with:
           fetch-depth: 0 # Fetch all history to include tags
 
+      # Download Linux artifacts
       - name: Download Linux artifacts
         uses: actions/download-artifact@v4
         with:
           name: linux-artifacts
           path: linux
 
+      # Download Windows artifacts
       - name: Download Windows artifacts
         uses: actions/download-artifact@v4
         with:
           name: windows-artifacts
           path: windows
 
-      # Fetch the history of commits and append it to the release
+      # Fetch the history of commits to append to the release
       - name: Fetch commit messages
         id: get_commits
         run: |
@@ -197,7 +220,7 @@ jobs:
           echo -e "$FORMATTED_COMMITS" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
-      # Upload the artifact as part of the release
+      # Create the release and append the formatted commits
       - name: Create GitHub Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -210,11 +233,13 @@ jobs:
 
           ${{ env.FORMATTED_COMMITS }}"
 
+      # Upload the artifact as part of the release
       - name: Upload artifact to GitHub Release
         env:
           GITHUB_TOKEN: ${{ github.token }}
         # Upload to GitHub Release using the `gh` CLI.
-        # `build-artifacts-linux.tar.gz` contains the built game
+        # `linux-build.tar.gz` contains the build for GNU/Linux
+        # `windows-build.tar.gz` contains the build for Windows
         run: >-
-          gh release upload '${{ github.ref_name }}' linux/build-artifacts-linux.tar.gz windows/build-artifacts-windows.tar.gz
+          gh release upload '${{ github.ref_name }}' linux/linux-build.tar.gz windows/windows-build.tar.gz
           --repo '${{ github.repository }}'

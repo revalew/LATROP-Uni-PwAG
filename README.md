@@ -5,7 +5,7 @@
 
 ## **Project Overview**
 
-**Latrop** is a 3D game developed in **OpenGL**, inspired by the concept of creating and utilizing portals to solve puzzles and progress through levels. This game was created as a university project for the course **"Programming in Graphical API"** at Silesian University of Science.
+**Latrop** is a 3D game developed in **OpenGL**, inspired by the concept of creating and utilizing portals to solve puzzles and progress through levels. This game was created as a university project for the course **"Programming in Graphical API"**.
 
 The main goal of this project was to explore graphical programming concepts, implement advanced rendering techniques, and demonstrate proficiency in using the OpenGL API for real-time 3D graphics.
 
@@ -48,7 +48,7 @@ Player can use the following controls to play the game:
 1. **Movement**
 
 - `W/S/A/D` - Move forward, backward, left, and right,
-- `Space` - Jump,
+- `Space` - Jump.
 
 </br>
 
@@ -67,7 +67,7 @@ Player can use the following controls to play the game:
 - `1-9` - Select a level (or restart),
 - `R` - Reset the portals,
 - `B` - Toggle the normal mapping mode,
-- `N` - Toggle the wireframe mode,
+- `N` - Toggle the wireframe mode.
 
 </br>
 </br>
@@ -134,9 +134,11 @@ On Windows, the `latrop.exe` will display a warning that the application is pote
 
 > [!NOTE]
 >
-> This section has been tested using GNU/Linux, but will work almost identically on Windows using CMake app.
+> This section has been tested on GNU/Linux, but will work almost identically on Windows using the CMake application.
 >
-> On Windows you have to manually download and link the required libraries in the Visual Studio project (configuration not included)
+> On Windows, you will need to manually download and link the required libraries into the Visual Studio project (configuration not included).
+>
+> You can also follow the steps from the [workflow file](./.github/workflows/create_release.yml) (job called `build-and-release-windows`, which uses the `vcpkg` package manager and `CMAKE_TOOLCHAIN_FILE` to link the downloaded packages with the provided `CMakeLists.txt` file).
 
 </br>
 
