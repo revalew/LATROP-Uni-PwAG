@@ -1,24 +1,61 @@
-! Cube Map Example
+! Start position
+s 18.0 1.5 4
+! testing position
+!s 10 11.5 15
 
-! Start
-s 3.5 2 5
+c 9.5 11.0 7.5
 
-! Cake
-c 5 7 5
+! Light
+l 18 12 10
 
-! Light position
-l 5 6 5
+! Platforms
+t 0 -1 0 5 0 5
 
-! Floor
-t 0 0 0 10 1 10
+t 15 0 0 20 1.0 5
 
-! Left wall
-w 0 0 0 1 10 10
-! Right wall
-w 9 0 0 10 10 10
-! Front wall
-w 0 0 0 10 10 1
-! Back wall
-w 0 0 9 10 10 10
+t 0 0 15 5 1.0 20
+
+t 15 3.5 15 20 4 20
+t 15 -1 17 20 0 20
+t 15 0 17 20 1 18
+
+! Acid
+a 0.7 -2 -0.3 19.5 -1 20.4
+
 ! Ceiling
-t 0 10 0 10 11 10
+t 0 14 0 20 15 20
+! Wall to get to the cake
+w 8 11 11 9 14 13
+
+! Platform
+t 0 11 12 8 11 13
+
+! Outer walls
+t -1 -1 0 0 14 5
+! 2nd move decoy (tiles)
+t -1 -1 5 0 14 15
+! 2nd move decoy (wall)
+w -1 -1 15 0 14 21
+
+w 20 -1 0 21 14 5
+t 20 -1 5 21 14 15
+t 20 -1 15 21 14 20
+w 19.4 4 15.1 21.9 14 19.3
+
+w -0.3 -1 -1.7 5.9 14 0.5
+t 5 -1 -1 15 14 0
+w 15 -1 -1 20 14 0
+
+! back
+t 0 -1 20 15 14 21
+w 15 -1 20 20 14 21
+
+! Middle blockade 
+t 11 10 0 12 14 12
+t 11 11 12 12 14 14
+t 11 10 14 12 14 20
+! Middle wall
+t 9 0.0 0 10 11 15
+t 9 0.0 15 10 5.0 20
+
+t 7 5 9 12 6 14

@@ -1,30 +1,56 @@
 ! Start position
-s 1.5 1 5
+s 3 3.5 2
+! testing position
+!s 18.5 4.5 18.5
 
-! Cake position
-c 18 5 5
-t 17.5 4 4.5 18.5 5 5.5
+! Cake
+c 19.5 0 17.5
+
+! Platform above the cake
+t 15 3 15 20 4 20
 
 ! Light
-l 10 8 5
+l 12.3 7 9.7
 
-! Left floor
-t 0 -1 0 3 0 10
+! Platforms
+t 0 2.0 0 5 3.0 5
 
-! Left wall
-w -1 0 0 0 9 10
-! Front and back walls
-t 0 0 -1 20 9 0
-t 0 0 10 20 9 11
+t 15 2.0 0 20 3.0 5
 
-! Middle wall
-t 3 0 0 7 4 10
-! Acid pool in middle
-a 7 2 0 16 3 10
-! Right platform
-t 16 3 0 20 4 10
-! Right wall
-w 20 4 0 21 9 10
+t 0 2.0 15 5 3.0 20
+
+t 15 6.5 15 20 7.0 20
+
+! Platform under the cake
+t 15 -1 17 20 0 20
+t 17 -1 16 20 3 17
+t 15 -1 16 17 1 17
+
+! Acid
+a 0 -2 0 20 -1 20
 
 ! Ceiling
-t 0 9 0 20 10 10
+t 0 8 0 20 9 20
+
+! Outer walls
+t -1 -1 0 0 8 5
+t -1 -1 5 0 11.0 20
+
+w 20 -1 0 21 8 5
+t 20 -1 5 21 8 15
+t 20 -1 15 21 4 20
+w 20 4 15 21 8 20
+
+w 0 -1 -1 5 8 0
+t 5 -1 -1 15 11.0 0
+w 13.2 -1 -2.5 20.4 8 0.6
+
+w 0 -1 20 5 8 21
+t 5 -1 20 15 8 21
+w 15 -1 20 20 8 21
+
+! Middle wall
+t 9.5 2.0 0 10.5 10.0 15
+t 9.5 -1 15 10.5 4 20
+
+t 6.8 3 5.2 12.2 4 7.6
