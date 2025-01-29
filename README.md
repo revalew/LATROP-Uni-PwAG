@@ -198,7 +198,7 @@ cmake --build . -j$(nproc)
 
 ### **Running the Game**
 
-After building, execute the game (_inside the build folder_):
+After building, launch the game (**_inside the build folder_**):
 
 ```bash
 ./latrop

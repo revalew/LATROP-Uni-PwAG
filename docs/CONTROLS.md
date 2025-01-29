@@ -13,7 +13,7 @@ Player can use the following controls to play the game:
 
 - `Mouse` - Look around the game world,
 - `Left Click` - Create a blue portal,
-- `Right Click` - Create a orange portal.
+- `Right Click` - Create an orange portal.
 
 </br>
 
